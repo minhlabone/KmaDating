@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116558519823",
+    "project_id": "datingapp-bebaf",
+    "storage_bucket": "datingapp-bebaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116558519823:android:7736f37f850f4ca6798d7a",
+        "android_client_info": {
+          "package_name": "com.quintus.labs.datingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAi6pYzzjQLK0NjIad_Oxf7GDA9_89PfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

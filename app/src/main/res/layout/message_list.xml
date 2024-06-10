@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@null"
+    android:dividerHeight="0dp"
+    >
+<!--  <de.hdodenhof.circleimageview.CircleImageView-->
+<!--      android:id="@+id/custom_UserImage1"-->
+<!--      android:layout_width="30dp"-->
+<!--      android:layout_height="30dp"/>-->
+    <TextView
+        android:id="@+id/receiver_inList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="18dp"
+        android:background="@drawable/item_receiver"
+        android:text="243562345"
+        android:textColor="#222121"
+        android:gravity="left"
+        android:visibility="visible"/>
+    <!--Receiver-->
+    <LinearLayout
+        android:layout_below="@id/receiver_inList"
+        android:id="@+id/RContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="300dp"
+        android:minWidth="100dp"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+  >
+
+<!--    <TextView-->
+<!--        android:id="@+id/receiver_inList"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:maxWidth="300dp"-->
+<!--        android:minWidth="100dp"-->
+<!--        android:padding="10dp"-->
+<!--        android:textSize="18dp"-->
+<!--        android:text=""-->
+<!--        android:textColor="#FFF"-->
+<!--        android:gravity="left"-->
+<!--        android:visibility="gone"/>-->
+
+        <ImageView
+            android:id="@+id/Receiver_Image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/ReceiverRecordContainerInList"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/button4"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ReceiverPlayOrPauseBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_play_arrow_24"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="10dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/seekbar"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="1dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ReceiveMessageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#2C2C2C"
+            android:textSize="8dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="right"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/item_send"
+        android:id="@+id/sender_inList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#FFF"
+        android:visibility="gone"/>
+
+    <!--Sender-->
+    <LinearLayout
+        android:layout_below="@id/sender_inList"
+        android:id="@+id/SContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="300dp"
+        android:minWidth="100dp"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+
+       >
+
+<!--        <TextView-->
+<!--            android:background="@drawable/item_send"-->
+<!--            android:id="@+id/sender_inList"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:maxWidth="300dp"-->
+<!--            android:minWidth="100dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:textSize="18dp"-->
+<!--            android:gravity="left"-->
+<!--            android:text=""-->
+<!--            android:textColor="#FFF"-->
+<!--            android:visibility="gone"/>-->
+
+        <ImageView
+            android:id="@+id/sender_Image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"/>
+
+
+        <LinearLayout
+            android:id="@+id/senderRecordContainerInList"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/button4"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/SenderPlayOrPauseBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_play_arrow_24"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="10dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/seekbar"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="1dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="end"
+            android:id="@+id/linearSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/SendMessageTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#393838"
+                android:textSize="8dp"/>
+
+            <ImageView
+                android:id="@+id/seenIcon"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_gravity="end"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
