@@ -67,7 +67,8 @@ public class RegisterGenderPrefection extends AppCompatActivity {
 
     public void maleButtonSelected() {
         preferMale = true;
-        maleSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
+//        maleSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
+        maleSelectionButton.setBackgroundColor(R.drawable.bg_button);
         maleSelectionButton.setAlpha(1.0f);
         femaleSelectionButton.setAlpha(.5f);
         femaleSelectionButton.setBackgroundColor(Color.GRAY);
@@ -75,7 +76,8 @@ public class RegisterGenderPrefection extends AppCompatActivity {
 
     public void femaleButtonSelected() {
         preferMale = false;
-        femaleSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
+//        femaleSelectionButton.setBackgroundColor(Color.parseColor("#FF4081"));
+        femaleSelectionButton.setBackgroundColor(R.drawable.bg_button);
         femaleSelectionButton.setAlpha(1.0f);
         maleSelectionButton.setAlpha(.5f);
         maleSelectionButton.setBackgroundColor(Color.GRAY);

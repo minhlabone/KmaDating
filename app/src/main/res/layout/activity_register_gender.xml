@@ -67,6 +67,9 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:drawableStart="@drawable/male"
+                android:drawableTint="@color/backgroungColor"
+                android:paddingStart="20dp"
                 android:id="@+id/maleSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,6 +84,9 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:drawableStart="@drawable/female"
+                android:drawableTint="@color/white"
+                android:paddingStart="20dp"
                 android:id="@+id/femaleSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
