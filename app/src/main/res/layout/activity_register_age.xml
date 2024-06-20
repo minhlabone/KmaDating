@@ -75,7 +75,7 @@
             android:datePickerMode="spinner"
             android:yearListSelectorColor="@color/colorPrimaryDark" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_gravity="center"
             android:id="@+id/ageContinueButton"
             android:layout_width="200dp"
@@ -84,8 +84,7 @@
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="24dp"
-            android:background="@drawable/white_rounded_button"
-            android:backgroundTint="#ff4081"
+            android:background="@drawable/bg_button"
             android:elevation="24dp"
             android:text="Tiếp tục"
             android:textColor="@android:color/white"

@@ -66,21 +66,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/sportsSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:background="#ff4081"
+                android:background="@drawable/bg_button"
                 android:elevation="24dp"
                 android:text="Thể thao"
                 android:textColor="@android:color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/travelSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
-                android:background="#ff4081"
+                android:background="@drawable/bg_button"
                 android:elevation="24dp"
                 android:text="Du lịch"
                 android:textColor="@android:color/white"
@@ -102,21 +102,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/musicSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:background="#ff4081"
+                android:background="@drawable/bg_button"
                 android:elevation="24dp"
                 android:text="Nghe nhạc"
                 android:textColor="@android:color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fishingSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
-                android:background="#ff4081"
+                android:background="@drawable/bg_button"
                 android:elevation="24dp"
                 android:text="Câu cá"
                 android:textColor="@android:color/white"
@@ -138,21 +138,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/movieSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:background="#ff4081"
+                android:background="@drawable/bg_button"
                 android:elevation="24dp"
                 android:text="Xem phim"
                 android:textColor="@android:color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/gamingSelectionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
-                android:background="#ff4081"
+                android:background="@drawable/bg_button"
                 android:elevation="24dp"
                 android:text="Chơi game"
                 android:textColor="@android:color/white"
@@ -169,14 +169,14 @@
 
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/hobbiesContinueButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginRight="24dp"
-            android:background="#ff4081"
+            android:background="@drawable/bg_button"
             android:backgroundTint="#ff4081"
             android:elevation="24dp"
             android:onClick="onHobbyContinueClicked"

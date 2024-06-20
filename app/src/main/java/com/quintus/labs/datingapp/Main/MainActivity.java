@@ -265,23 +265,32 @@ public class MainActivity extends Activity {
 
     }
 
-
+// Thuật toán ghép cặp tinder :vvvv
     private void getCards(){
+        // Xóa nguười dùng khỏi danh sách
         for(String id: selectedUserId){
             userArrayList.removeIf(s -> s.getUser_id().equals(id));
         }
+        // khởi tạo 1 rowItem là ArrayList mới  để lưu các thẻ
         rowItems = new ArrayList<>();
         arrayAdapter = new PhotoAdapter(this, R.layout.item, rowItems);
+
+        // lấy ra vị tr hiện tại
         Location currentLocation = new Location("currentLocation");
         currentLocation.setLatitude(myUser.getLatitude());
         currentLocation.setLongitude(myUser.getLongtitude());
+
+        // sau khi lấy vị trí rồi duệt qua danh sách người dùng và tính khoảng cách
         for(User user: userArrayList){
             Location location2 = new Location("location2");
             location2.setLongitude(user.getLongtitude());
             location2.setLatitude(user.getLatitude());
-
+           // tính khoảng cách giữa myUser với người trong danh sách
             float distance = currentLocation.distanceTo(location2)/1000 ;
             distance = Math.round(distance*100)/100;
+
+            //sau khi tính xong thì kiểm tra tiêu chí để ghép
+             // 1 : giới tính khác nhau +  tuổi của user phải nằm trong khoảng set của myUser + cos 1 sở thích chung
             if((!user.getSex().equals(myUser.getSex())
                 && user.getAge() <= myUser.getAgeTo()
                 && user.getAge() >= myUser.getAgeFrom())
@@ -293,8 +302,9 @@ public class MainActivity extends Activity {
                       || (user.isTravel() && myUser.isTravel())
                       || (user.isFishing() && myUser.isFishing())
                     )
-            ) && distance <= myUser.getDistance())
+            ) && distance <= myUser.getDistance()) // không vượt quá khoảng cách tối đa mà myUser đã setting
               {
+                  // nếu oke thì lưu user đó vào list card để hiển thị lên cho myUser ghép cặp
                 Cards cards = new Cards(user.getUser_id(),
                         user.getName(),
                         user.getAge(),
@@ -315,7 +325,7 @@ public class MainActivity extends Activity {
 
             }
         }
-        checkRowItem();
+        checkRowItem(); // check list card để hiển thị
         updateSwipeCard();
 
     }
@@ -411,6 +421,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+                // vuốt sang trái và lấy ra đối tượng card rồi checkRow hiển thị lên màn hình
                 Cards obj = (Cards) dataObject;
                 selectedDatabase.child(obj.getUserId()).setValue(obj.getUserId());
                 checkRowItem();
@@ -418,6 +429,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                // vuốt sang phải thì insert vào match rồi cập nhật card mới
                 Cards obj = (Cards) dataObject;
                 matchDatabase.child(obj.getUserId()).setValue(obj.getUserId());
                 selectedDatabase.child(obj.getUserId()).setValue(obj.getUserId());
@@ -516,7 +528,7 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
 
     }
-
+  // kiểm tra và yêu cầu bat GPS
     public void enableGPS(){
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

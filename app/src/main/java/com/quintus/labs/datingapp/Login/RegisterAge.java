@@ -3,6 +3,8 @@ package com.quintus.labs.datingapp.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,7 +24,7 @@ public class RegisterAge extends AppCompatActivity {
     User user;
     SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy");
     private DatePicker ageSelectionPicker;
-    private Button ageContinueButton;
+    private AppCompatButton ageContinueButton;
     // age limit attribute
     private int ageLimit = 13;
     private int age;

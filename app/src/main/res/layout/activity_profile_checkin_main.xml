@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <include layout="@layout/layout_top_navigation_back" />
+    <include layout="@layout/layout_top_navigation_profile" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,219 +28,421 @@
                     android:background="@color/backgroungColor"
                     android:orientation="vertical"
                     android:visibility="visible">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-
                         android:weightSum="10">
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="260dp"
-                            android:layout_weight="4"
-                            app:cardCornerRadius="4dp"
-                            app:cardElevation="4dp"
-                            app:cardUseCompatPadding="true">
-
-                            <RelativeLayout
+                            <androidx.viewpager2.widget.ViewPager2
+                                android:id="@+id/viewpager2"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                                android:layout_height="260dp"
+                                android:paddingEnd="80dp"
+                                android:paddingStart="80dp"
+                                />
+<!--                        <androidx.cardview.widget.CardView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="260dp"-->
+<!--                            android:layout_weight="4"-->
+<!--                            app:cardCornerRadius="4dp"-->
+<!--                            app:cardElevation="4dp"-->
+<!--                            app:cardUseCompatPadding="true">-->
 
-                                <ImageView
-                                    android:id="@+id/image_view_1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:scaleType="fitXY" />
+<!--                            <RelativeLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent">-->
 
-                            </RelativeLayout>
+<!--                                <ImageView-->
+<!--                                    android:id="@+id/image_view_1"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="match_parent"-->
+<!--                                    android:scaleType="fitXY" />-->
 
-                        </androidx.cardview.widget.CardView>
+<!--                            </RelativeLayout>-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="6"
-                            android:orientation="vertical">
+<!--                        </androidx.cardview.widget.CardView>-->
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                app:cardCornerRadius="4dp"
-                                app:cardElevation="4dp"
-                                app:cardUseCompatPadding="true">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="6"-->
+<!--                            android:orientation="vertical">-->
 
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-                                    <ImageView
-                                        android:id="@+id/image_view_2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:scaleType="fitXY" />
+<!--                            <androidx.cardview.widget.CardView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="130dp"-->
+<!--                                app:cardCornerRadius="4dp"-->
+<!--                                app:cardElevation="4dp"-->
+<!--                                app:cardUseCompatPadding="true">-->
+
+<!--                                <RelativeLayout-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="match_parent">-->
+<!--                                    <ImageView-->
+<!--                                        android:id="@+id/image_view_2"-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="match_parent"-->
+<!--                                        android:scaleType="fitXY" />-->
 
 
-                                </RelativeLayout>
-                            </androidx.cardview.widget.CardView>
+<!--                                </RelativeLayout>-->
+<!--                            </androidx.cardview.widget.CardView>-->
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="match_parent"
-                                android:layout_height="130dp"
-                                app:cardCornerRadius="4dp"
-                                app:cardElevation="4dp"
-                                app:cardUseCompatPadding="true">
+<!--                            <androidx.cardview.widget.CardView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="130dp"-->
+<!--                                app:cardCornerRadius="4dp"-->
+<!--                                app:cardElevation="4dp"-->
+<!--                                app:cardUseCompatPadding="true">-->
 
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+<!--                                <RelativeLayout-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="match_parent">-->
 
-                                    <ImageView
-                                        android:id="@+id/image_view_3"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:scaleType="fitXY" />
-                                </RelativeLayout>
-                            </androidx.cardview.widget.CardView>
+<!--                                    <ImageView-->
+<!--                                        android:id="@+id/image_view_3"-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="match_parent"-->
+<!--                                        android:scaleType="fitXY" />-->
+<!--                                </RelativeLayout>-->
+<!--                            </androidx.cardview.widget.CardView>-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
                     </LinearLayout>
 
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingRight="10dp">-->
+
+<!--                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="Tên hiển thị"-->
+<!--                            android:textSize="18dp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/nameText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@android:color/transparent"-->
+<!--                            android:gravity="bottom"-->
+<!--                            android:padding="5dp"-->
+<!--                             />-->
+
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:background="@color/colorAccent" />-->
+
+<!--                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="Trạng thái"-->
+<!--                            android:textSize="18dp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/statusText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="70dp"-->
+<!--                            android:background="@android:color/transparent"-->
+<!--                            android:gravity="bottom"-->
+<!--                            />-->
+
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:background="@color/colorAccent" />-->
+
+<!--                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="Công việc"-->
+<!--                            android:textSize="18dp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/jobText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@android:color/transparent"-->
+<!--                            android:gravity="bottom"-->
+<!--                            android:padding="@dimen/_5dp" />-->
+
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:background="@color/colorAccent" />-->
+
+<!--                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="Công ty"-->
+<!--                            android:textSize="18dp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/companyText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@android:color/transparent"-->
+<!--                            android:gravity="bottom"-->
+<!--                            android:padding="@dimen/_5dp" />-->
+
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:background="@color/colorAccent" />-->
+
+<!--                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="Trường học"-->
+<!--                            android:textSize="18dp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/schoolText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@android:color/transparent"-->
+<!--                            android:gravity="bottom"-->
+<!--                            android:padding="@dimen/_5dp" />-->
+
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:background="@color/colorAccent" />-->
+
+<!--                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:text="Sở thích"-->
+<!--                            android:textSize="18dp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/hobbieslText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@android:color/transparent"-->
+<!--                            android:gravity="bottom"-->
+<!--                            android:padding="@dimen/_5dp" />-->
+
+
+
+<!--                    </LinearLayout>-->
                     <LinearLayout
+                        android:background="@drawable/bg_linearlayout"
+                        android:padding="10dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp">
-
-                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Tên hiển thị"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/nameText"
+                        <LinearLayout
+                            android:id="@+id/layname"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:gravity="bottom"
+                            android:layout_height="match_parent"
                             android:padding="5dp"
-                             />
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            >
+                            <EditText
+                                android:gravity="center"
+                                android:layout_weight="0.6"
+                                android:id="@+id/nameText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:hint="Tên hiển thị" />
+                            <TextView
+                                android:text="Tên"
+                                android:textAlignment="viewEnd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-                        <View
+                        </LinearLayout>
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/colorAccent" />
-
-                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Trạng thái"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/statusText"
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            android:background="@android:color/transparent"
-                            android:gravity="bottom"
+                            android:layout_margin="10dp"
+                            android:alpha="0.5"
+                            android:background="@color/colorAccent"
                             />
 
-                        <View
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:gravity="center"
+                                android:layout_weight="0.6"
+                                android:id="@+id/statusText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:hint="Viết gì đó về bạn" />
+                            <TextView
+                                android:text="Giới thiệu"
+                                android:textAlignment="viewEnd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/colorAccent" />
+                            android:layout_margin="10dp"
+                            android:alpha="0.5"
+                            android:background="@color/colorAccent"
+                            />
 
-                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Công việc"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/jobText"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:gravity="bottom"
-                            android:padding="@dimen/_5dp" />
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:gravity="center"
+                                android:layout_weight="0.6"
+                                android:id="@+id/jobText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:hint="Thêm công việc"
+                                />
+                            <TextView
+                                android:text="Công Việc"
+                                android:textAlignment="viewEnd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
-                        <View
+
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/colorAccent" />
+                            android:layout_margin="10dp"
+                            android:alpha="0.5"
+                            android:background="@color/colorAccent"
+                            />
 
-                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Công ty"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/companyText"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:gravity="bottom"
-                            android:padding="@dimen/_5dp" />
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:gravity="center"
+                                android:layout_weight="0.6"
+                                android:id="@+id/companyText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:hint="Thêm công ty" />
+                            <TextView
+                                android:text="Công Ty"
+                                android:textAlignment="viewEnd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
-                        <View
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/colorAccent" />
-
-                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:alpha="0.5"
+                            android:background="@color/colorAccent"
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:padding="5dp"
-                            android:text="Trường học"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/schoolText"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:gravity="center"
+                                android:layout_weight="0.6"
+                                android:id="@+id/schoolText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:hint="Thêm trường" />
+                            <TextView
+                                android:text="Trường"
+                                android:textAlignment="viewEnd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:gravity="bottom"
-                            android:padding="@dimen/_5dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@color/colorAccent" />
-
-                        <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:padding="5dp"
-                            android:text="Sở thích"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/hobbieslText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:gravity="bottom"
-                            android:padding="@dimen/_5dp" />
-
-
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:hint="Sở thích"
+                                android:layout_weight="0.6"
+                                android:id="@+id/hobbieslText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:gravity="bottom"
+                                android:padding="@dimen/_5dp" />
+                            <TextView
+                                android:text="Sở thích"
+                                android:textAlignment="viewEnd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>

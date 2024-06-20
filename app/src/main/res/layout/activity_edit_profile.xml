@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <include layout="@layout/layout_top_navigation_back" />
+    <include layout="@layout/layout_top_navigation_profile" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,12 +32,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-
                         android:weightSum="10">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="260dp"
+                            android:layout_height="240dp"
                             android:layout_weight="4"
                             app:cardCornerRadius="4dp"
                             app:cardElevation="4dp"
@@ -169,153 +168,187 @@
 
                         </LinearLayout>
                     </LinearLayout>
-
                 <LinearLayout
+                    android:padding="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
-
-                    <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Tên hiển thị"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/nameText"
+                    <LinearLayout
+                        android:id="@+id/layname"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        android:hint="Tên hiển thị của bạn" />
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        >
+                        <EditText
+                            android:layout_weight="0.6"
+                            android:id="@+id/nameText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Tên hiển thị" />
+                        <TextView
+                            android:text="Tên"
+                            android:textAlignment="viewEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                    <View
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                        android:layout_margin="10dp"
+                        android:alpha="0.5"
+                        android:background="@color/colorAccent"
+                        />
 
-                    <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Trạng thái"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/statusText"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="Viết gì đó về bạn" />
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:layout_weight="0.6"
+                            android:id="@+id/statusText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Viết gì đó về bạn" />
+                        <TextView
+                            android:text="Giới thiệu"
+                            android:textAlignment="viewEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-                    <View
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                        android:layout_margin="10dp"
+                        android:alpha="0.5"
+                        android:background="@color/colorAccent"
+                        />
 
-                    <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Công việc"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/jobText"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="Thêm công việc"
-                        android:padding="@dimen/_5dp" />
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:layout_weight="0.6"
+                            android:id="@+id/jobText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Thêm công việc"
+                             />
+                        <TextView
+                            android:text="Công Việc"
+                            android:textAlignment="viewEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-                    <View
+
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                        android:layout_margin="10dp"
+                        android:alpha="0.5"
+                        android:background="@color/colorAccent"
+                        />
 
-                    <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Công ty"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/companyText"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="Thêm công ty"
-                        android:padding="@dimen/_5dp" />
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:layout_weight="0.6"
+                            android:id="@+id/companyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Thêm công ty" />
+                        <TextView
+                            android:text="Công Ty"
+                            android:textAlignment="viewEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-                    <View
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
-
-                    <com.quintus.labs.datingapp.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:alpha="0.5"
+                        android:background="@color/colorAccent"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        android:text="Trường học"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:layout_weight="0.6"
+                            android:id="@+id/schoolText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Thêm trường" />
+                        <TextView
+                            android:text="Trường"
+                            android:textAlignment="viewEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/schoolText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="Thêm trường"
-                        android:padding="@dimen/_5dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
-
-
-
-
-
-
-
-
-
-
-                    <Button
+                </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/saveButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/ageSelectionPicker"
-                        android:layout_marginLeft="24dp"
+                        android:layout_marginLeft="55dp"
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="16dp"
-                        android:layout_marginRight="24dp"
-                        android:background="#ff4081"
-                        android:backgroundTint="#ff4081"
+                        android:layout_marginRight="55dp"
+                        android:background="@drawable/bg_button"
                         android:elevation="24dp"
                         android:text="Lưu"
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

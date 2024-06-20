@@ -18,6 +18,7 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,7 +94,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
     private EditText name, status, school, job, company;
     private String nameTxt, statusTxt, schoolTxt, jobTxt, companyTxt;
-    private Button saveBtn;
+    private AppCompatButton saveBtn;
     private char imageSelected = '1';
     private ProgressDialog mProgressBar;
     private ProgressDialog mDProgressDialog;
