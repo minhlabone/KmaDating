@@ -27,6 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationRequest;
@@ -84,7 +85,7 @@ public class MainActivity extends Activity {
     private User myUser;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 //    private SwipeFlingAdapterView flingContainer;
-
+    LottieAnimationView animationView,animationView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,8 @@ public class MainActivity extends Activity {
         setupTopNavigationView();
         cardFrame = findViewById(R.id.card_frame);
         moreFrame = findViewById(R.id.more_frame);
+        animationView = findViewById(R.id.animationView);
+        animationView2 = findViewById(R.id.animationView2);
         // start pulsator
         PulsatorLayout mPulsator = findViewById(R.id.pulsator);
         mPulsator.start();
@@ -421,21 +424,49 @@ public class MainActivity extends Activity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+                animationView2.setVisibility(View.VISIBLE);
+                animationView2.setAnimation(R.raw.breakhear2);
+                animationView2.playAnimation();
+                cardFrame.setVisibility(View.GONE);
+                moreFrame.setVisibility(View.GONE);
                 // vuốt sang trái và lấy ra đối tượng card rồi checkRow hiển thị lên màn hình
                 Cards obj = (Cards) dataObject;
                 selectedDatabase.child(obj.getUserId()).setValue(obj.getUserId());
-                checkRowItem();
+                animationView2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        animationView2.cancelAnimation();
+                        animationView2.setVisibility(View.GONE);
+                        cardFrame.setVisibility(View.VISIBLE);
+                        checkRowItem();
+                        // Hoặc dùng lottieAnimationView.pauseAnimation();
+                    }
+                }, 2500);
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                animationView.setVisibility(View.VISIBLE);
+                animationView.setAnimation(R.raw.love);
+                animationView.playAnimation();
+                cardFrame.setVisibility(View.GONE);
+                moreFrame.setVisibility(View.GONE);
                 // vuốt sang phải thì insert vào match rồi cập nhật card mới
                 Cards obj = (Cards) dataObject;
                 matchDatabase.child(obj.getUserId()).setValue(obj.getUserId());
                 selectedDatabase.child(obj.getUserId()).setValue(obj.getUserId());
                 //check matches
-                checkRowItem();
-
+//                checkRowItem();
+                animationView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        animationView.cancelAnimation();
+                        animationView.setVisibility(View.GONE);
+                        cardFrame.setVisibility(View.VISIBLE);
+                        checkRowItem();
+                        // Hoặc dùng lottieAnimationView.pauseAnimation();
+                    }
+                }, 2500);
             }
 
             @Override
