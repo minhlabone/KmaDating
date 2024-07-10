@@ -20,6 +20,7 @@ import com.quintus.labs.datingapp.Utils.User;
 
 
 public class ProfileCheckinMatched extends AppCompatActivity {
+    // bỏ
     private static final String TAG = "ProfileCheckinMatched";
 
     private User user;

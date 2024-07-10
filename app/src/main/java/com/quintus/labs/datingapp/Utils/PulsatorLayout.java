@@ -24,6 +24,7 @@ import java.util.List;
 
 
 public class PulsatorLayout extends RelativeLayout {
+    // hiệu ứng vòng tròn nhấp nháy
 
     public static final int INFINITE = 0;
 

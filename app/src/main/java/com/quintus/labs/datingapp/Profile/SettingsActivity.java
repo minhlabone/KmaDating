@@ -94,7 +94,10 @@ public class SettingsActivity extends AppCompatActivity {
                 int distanceNum = Integer.parseInt(distanceTxt);
                 int ageFromNum = Integer.parseInt(ageFrom);
                 int ageToNum = Integer.parseInt(ageTo);
+
+                // // Cập nhật giá trị cho thanh tiến trình khoảng cách
                 distance.setProgress(distanceNum);
+                //// Cập nhật giá trị cho thanh tìm kiếm khoảng tuổi
                 rangeSeekBar.setSelectedMinValue(ageFromNum);
                 rangeSeekBar.setSelectedMaxValue(ageToNum);
                 age_rnge.setText(ageFrom + "-" + ageTo);
@@ -105,7 +108,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
-
+   //khoảng cách
         distance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -123,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
+// tuổi
         rangeSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
@@ -246,7 +249,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-
+//đăng xuất
     private void Logout(){
         AlertDialog.Builder checkAlert = new AlertDialog.Builder(SettingsActivity.this);
         checkAlert.setMessage("Bạn có muốn Đăng xuất không?")
@@ -275,6 +278,8 @@ public class SettingsActivity extends AppCompatActivity {
         alert.show();
     }
 
+
+    //Lưu thông tin thay đổi
     private void save(){
         mProgressBar = new ProgressDialog(SettingsActivity.this);
         mProgressBar.setTitle("\n" +

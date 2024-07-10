@@ -54,22 +54,24 @@ public class RegisterAge extends AppCompatActivity {
     }
 
     public void openHobbiesEntryPage() {
+        //Sử dụng phương thức getAge để tính tuổi dựa trên năm, tháng và ngày từ DatePicker
         age = getAge(ageSelectionPicker.getYear(), ageSelectionPicker.getMonth(), ageSelectionPicker.getDayOfMonth());
 
         // if user is above 13 years old then only he/she will be allowed to register to the system.
         if (age > ageLimit) {
             user.setAge(age);
-            // code for converting date to string
+            // code for converting date to string ( chuyển đổi ngày sinh DatePicker sang Date
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.YEAR, ageSelectionPicker.getYear());
             cal.set(Calendar.MONTH, ageSelectionPicker.getMonth());
             cal.set(Calendar.DAY_OF_MONTH, ageSelectionPicker.getDayOfMonth());
             Date dateOfBirth = cal.getTime();
+            //set ngày sinh thành String
             String strDateOfBirth = dateFormatter.format(dateOfBirth);
 
-            // code to set the dateOfBirthAttribute.
+            // đặt thuộc tính ngày sinh cho đối tượng age
             user.setDateOfBirth(strDateOfBirth);
-
+           //Chuyển sang Sở thích
             Intent intent = new Intent(this, RegisterHobby.class);
             intent.putExtra("password", password);
             intent.putExtra("classUser", user);
@@ -81,15 +83,15 @@ public class RegisterAge extends AppCompatActivity {
 
     }
 
-    // method to get the current age of the user.
+    // Tính tuổi hiện tại của người dùng
     private int getAge(int year, int month, int day) {
         Calendar dateOfBirth = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
 
         dateOfBirth.set(year, month, day);
-
+      // tính tuổi bằng năm hiện tại - năm sinh
         int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
-
+      //ktra ngày hiện tại nhỏ hơn ngày năm sinh k. nếu có thì giảm đi 1 tuổi vì chưa tới sinh nhật
         if (today.get(Calendar.DAY_OF_YEAR) < dateOfBirth.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }

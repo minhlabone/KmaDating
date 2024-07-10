@@ -114,27 +114,27 @@ public class FriendsChattingActivity extends AppCompatActivity {
         CurrentUID= currentUser.getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        //retrieve User data from the previous Activity
+        //lấy giữ liệu từ matched
         UserId=getIntent().getStringExtra("User Id");
         UserName=getIntent().getStringExtra("User Name");
         UserImage=getIntent().getStringExtra("User Image");
 
 
 //        MainActivity.isFinished=false;
+        //set trạng thái người dùng là online và đã xem, đánh dấu tất cả tin nhắn của bạn bè là đã xem
         FirebaseDatabase.getInstance().getReference().child("users").child(CurrentUID).child("Online").setValue("true");
         FirebaseDatabase.getInstance().getReference().child("users").child(CurrentUID).child("Seen").setValue("seen");
 
 
-        //mark all the friend messages as seen mark because am seen now
+        //đánh dấu tin nhắn là đã xem
         markAllFriendMessagesAsSeen();
 
-        //define and show Actionbar
+        //actionbar
         show_ActionBar();
-
-        //display user data in action bar
+        //dữ liệu user trên actionbar
         displayUserDataInActionBar();
 
-        //define xml components
+        //ánh xạ view
         chatting_listView=(ListView)findViewById(R.id.Chatting_ListView);
         SendImageBtn=(ImageButton)findViewById(R.id.SendImageBtn);
         AddRecordBtn = (ImageButton)findViewById(R.id.AddRecordBtn);
@@ -151,22 +151,22 @@ public class FriendsChattingActivity extends AppCompatActivity {
         handler=new Handler();
         mediaPlayer = new MediaPlayer();
 
-
+       // list chat
         chatting_arraylist =new ArrayList<>();
         final MessageAdapter adapter=new MessageAdapter(this,chatting_arraylist);
         chatting_listView.setAdapter(adapter);
 
-        //if the user wanted to delete message
+        //xóa tin nhắn
         DeleteMessage();
 
         // if any one send message to other
         ChangeInChatting();
 
-        //if the user play any record
+        //record -> lỗi nên tạm thời bỏ nhé ae
         playRecord();
 
 
-        //on click to send Image button
+        //gửi hình ảnh
         SendImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,7 +182,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
         });
 
 
-        //on click to Add record button
+        //lỗi record -> tạm thời bỏ
         AddRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,8 +207,6 @@ public class FriendsChattingActivity extends AppCompatActivity {
 
             }
         });
-
-
         //on click to cancel record Text view
         CancelRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,8 +223,6 @@ public class FriendsChattingActivity extends AppCompatActivity {
 
             }
         });
-
-
         //on click to send record button
         SendRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,6 +283,8 @@ public class FriendsChattingActivity extends AppCompatActivity {
         });
 
 
+
+        // record -> tạm thời bỏ
         chatting_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -369,8 +367,6 @@ public class FriendsChattingActivity extends AppCompatActivity {
 
     }
 
-
-
     private void ChangeSeekBar() {
         SeekBar.setProgress(mediaPlayer.getCurrentPosition());
         if(mediaPlayer.isPlaying()){
@@ -384,7 +380,6 @@ public class FriendsChattingActivity extends AppCompatActivity {
         }
     }
 
-    //**********************************************************************************************
     private void startRecording() {
         mFilePath = this.getFilesDir().getAbsolutePath();
         mFileName = random()+".3gp";
@@ -413,8 +408,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
 
         uploadRecord();
     }
-
-
+    //record -> tạm thời bỏ
     private void uploadRecord(){
         final  StorageReference FilePath = mStorageRef.child("message_records").child(random()+".3gp");
         Uri uri = Uri.fromFile(new File(mFilePath+"/"+mFileName));
@@ -444,12 +438,9 @@ public class FriendsChattingActivity extends AppCompatActivity {
     }
 
 
-//**********************************************************************************************
-
-
 
     private void markAllFriendMessagesAsSeen(){
-        //mark all the sent friend's messages seen because me seen now
+        //Đánh dấu tất cả các tin nhắn từ bạn bè là đã xem
         DatabaseReference Root= FirebaseDatabase.getInstance().getReference();
         DatabaseReference a=Root.child("chats").child(UserId).child(CurrentUID);
         ValueEventListener EventListener= new ValueEventListener() {
@@ -458,6 +449,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot Snapshot : dataSnapshot.getChildren()){
                         if(Snapshot.child("Message").getValue().toString().substring(0,1).equals("S")) {
+                            //set value trạng thái là 3 là đã xem
                             FirebaseDatabase.getInstance().getReference().child("chats").child(UserId).child(CurrentUID).child(Snapshot.getKey().toString()).child("Message State").setValue("3");
                         }
                     }
@@ -486,7 +478,9 @@ public class FriendsChattingActivity extends AppCompatActivity {
                     else if(stat.equals("seen")) x=3;
 
                     //send message
+                    //hash map chứa tin nhắn gửi đi
                     HashMap <String,String> SendHashMap= new HashMap<>();
+                    //set các trạng thái tin nhắn
                     SendHashMap.put("Message State",String.valueOf(x));
                     SendHashMap.put("Message","S"+message_value);
                     SendHashMap.put("Message Type","Message");
@@ -494,13 +488,14 @@ public class FriendsChattingActivity extends AppCompatActivity {
 
 
                     //receive message
+                    //hash map chứa tin nhắn nhận
                     HashMap <String,String> ReceiveHashMap= new HashMap<>();
                     ReceiveHashMap.put("Message State","null");
                     ReceiveHashMap.put("Message","R"+message_value);
                     ReceiveHashMap.put("Message Type","Message");
                     ReceiveHashMap.put("Message Time",new SimpleDateFormat("hh:mm a").format(Calendar.getInstance().getTime()));
 
-
+                   // gửi đi bằng cách thêm vào firebase nhánh chats
                     FirebaseDatabase.getInstance().getReference().child("chats").child(CurrentUID).child(UserId).push().setValue(SendHashMap);
                     FirebaseDatabase.getInstance().getReference().child("chats").child(UserId).child(CurrentUID).push().setValue(ReceiveHashMap);
 
@@ -522,7 +517,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
         mFirebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //check the state of the friend (offline or online or seen) to mark the message
+                // Kiểm tra trạng thái của bạn bè (offline, online, hoặc đã xem) để đánh dấu tin nhắn
                 update_MessagesSeenStateInDatabase(dataSnapshot);
 
             }
@@ -534,8 +529,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
 
 
     private void update_MessagesSeenStateInDatabase(final DataSnapshot data){
-        //mark all my sent messages (seen or online) applying to Friend state
-
+        // Đánh dấu tất cả các tin nhắn đã gửi của tôi (đã xem hoặc online) dựa trên trạng thái của bạn bè
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference m = root.child("users").child(UserId);
         ValueEventListener eventListener = new ValueEventListener() {
@@ -548,7 +542,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
                     else if(stat.equals("online")) x=2;
                     else if(stat.equals("seen")) x=3;
 
-                    if(x==3){  // so the friend seen now
+                    if(x==3){  // cập nhật tin nhắn thành đã xem
                         DatabaseReference root= FirebaseDatabase.getInstance().getReference();
                         DatabaseReference m=root.child("chats").child(CurrentUID).child(UserId);
                         ValueEventListener eventListener= new ValueEventListener() {
@@ -602,23 +596,27 @@ public class FriendsChattingActivity extends AppCompatActivity {
 
 
 
-
+// lưu và hiển thị tin nhắn
     private void SaveInAdapterAndDisplay(DataSnapshot data){
         final MessageAdapter adapter=new MessageAdapter(this,chatting_arraylist);
-
+        // clear tin nhắn để ko bị lặp
         chatting_arraylist.clear();
 
         for(DataSnapshot Snapshot : data.getChildren()){
             FinalMessage1="";
+            //kiểm tra xem có phải người gửi không ( có chữ S ở kí tự đầu)
             if (Snapshot.child("Message").getValue().toString().substring(0,1).equals("S")) {
+                // sử lí hình ảnh
                 if(Snapshot.child("Message Type").getValue().equals("Image")){
                     chatting_arraylist.add(new Message(Snapshot.child("Message").getValue().toString().substring(1, Snapshot.child("Message").getValue().toString().length()), " ", true,
                             Integer.valueOf(Snapshot.child("Message State").getValue().toString()),"Image",Snapshot.child("Message Time").getValue().toString()));
                 }
+                //tin nhắn văn bản
                 else if(Snapshot.child("Message Type").getValue().equals("Message")){
                     chatting_arraylist.add(new Message(Snapshot.child("Message").getValue().toString().substring(1, Snapshot.child("Message").getValue().toString().length()), " ", true,
                             Integer.valueOf(Snapshot.child("Message State").getValue().toString()),"Message",Snapshot.child("Message Time").getValue().toString()));
                 }
+                // ghi âm -> lỗi chưa fix được nên tạm thời bỏ nha
                 else if(Snapshot.child("Message Type").getValue().equals("Record")){
                     chatting_arraylist.add(new Message(Snapshot.child("Message").getValue().toString().substring(1, Snapshot.child("Message").getValue().toString().length()), " ", true,
                             Integer.valueOf(Snapshot.child("Message State").getValue().toString()),"Record",Snapshot.child("Message Time").getValue().toString()));
@@ -627,10 +625,13 @@ public class FriendsChattingActivity extends AppCompatActivity {
             }
 
             else {
+                // xử lí tin nhắn nhận
+                // ảnh
                 if(Snapshot.child("Message Type").getValue().equals("Image")){
                     chatting_arraylist.add(new Message(" ", Snapshot.child("Message").getValue().toString().substring(1, Snapshot.child("Message").getValue().toString().length()), false
                             , 0,"Image",Snapshot.child("Message Time").getValue().toString()));
                 }
+                // tin nhắn
                 else if(Snapshot.child("Message Type").getValue().equals("Message")){
                     chatting_arraylist.add(new Message(" ", Snapshot.child("Message").getValue().toString().substring(1, Snapshot.child("Message").getValue().toString().length()), false
                             , 0,"Message",Snapshot.child("Message Time").getValue().toString()));
@@ -695,9 +696,9 @@ public class FriendsChattingActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     UserOnLine = dataSnapshot.child("Online").getValue().toString();
 
-                    //display UserData
+                    // Hiển thị thông tin người dùng
                     custom_UserName.setText(UserName);
-                    // online state
+                    // Trạng thái online
                     if(UserOnLine.equals("true")) custom_UserOnline.setText("Online now");
                     else {
                         Long time = Long.valueOf(UserOnLine);
@@ -771,6 +772,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for( DataSnapshot Snapshot: dataSnapshot.getChildren()){
+                        // nếu là người gửi và chưa được đọc thì xóa
                         if(Snapshot.child("Message").getValue().equals("R"+message.getReceiverMessage()) || Snapshot.child("Message").getValue().equals("S"+message.getSenderMessage())){
                             //delete message
                             FirebaseDatabase.getInstance().getReference().child("chats").child(CurrentUID).child(UserId).child(Snapshot.getKey()).removeValue();
@@ -804,6 +806,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
                                 ||Snapshot.child("Message").getValue().equals("S"+message.getReceiverMessage()) ||
                                 Snapshot.child("Message").getValue().equals("R"+message.getSenderMessage())){
                             //delete message
+                            //Xóa tin nhắn khỏi cơ sở dữ liệu Firebase tại vị trí xác định bởi UserId, CurrentUID
                             FirebaseDatabase.getInstance().getReference().child("chats").child(UserId).child(CurrentUID).child(Snapshot.getKey()).removeValue();
                             Toast.makeText(FriendsChattingActivity.this,"\n" +
                                     "Đã xóa tin nhắn cho mọi người thành công",Toast.LENGTH_SHORT).show();
@@ -881,7 +884,7 @@ public class FriendsChattingActivity extends AppCompatActivity {
     }
 
 
-
+//tải lên hình ảnh vào Firebase Storage và lưu trữ URL tải xuống của hình ảnh đó
     private void UploadImageInStorageDataBase(Uri resultUri){
         //upload image in storage database
         final StorageReference FilePath = mStorageRef.child("message_images").child(random()+"jpg");

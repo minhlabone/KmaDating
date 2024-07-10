@@ -43,7 +43,7 @@ public class BtnLikeActivity extends AppCompatActivity {
                 Glide.with(mContext).load(profileUrl).into(like);
                 break;
         }
-
+ // tránh trường hợp chờ lâu bị crash
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -61,13 +61,13 @@ public class BtnLikeActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void setupTopNavigationView() {
-        Log.d(TAG, "setupTopNavigationView: setting up TopNavigationView");
-        BottomNavigationViewEx tvEx = findViewById(R.id.topNavViewBar);
-        TopNavigationViewHelper.setupTopNavigationView(tvEx);
-        TopNavigationViewHelper.enableNavigation(mContext, tvEx);
-        Menu menu = tvEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
-    }
+        private void setupTopNavigationView() {
+            Log.d(TAG, "setupTopNavigationView: setting up TopNavigationView");
+            BottomNavigationViewEx tvEx = findViewById(R.id.topNavViewBar);
+            TopNavigationViewHelper.setupTopNavigationView(tvEx);
+            TopNavigationViewHelper.enableNavigation(mContext, tvEx);
+            Menu menu = tvEx.getMenu();
+            MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+            menuItem.setChecked(true);
+        }
 }

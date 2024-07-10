@@ -45,6 +45,7 @@ public class RegisterBasicInfo extends AppCompatActivity {
     }
 
     private void init() {
+        // đăng kí rồi gửi thông tin qua age rồi từ age lại tiếp tục
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

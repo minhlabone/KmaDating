@@ -70,7 +70,7 @@ public class Profile_Activity extends AppCompatActivity {
                 name.setText(nameTxt);
 
                 if(!Image.equals("")) {
-                    //in case of offline image load quickly
+                    //ảnh offline
                     Picasso.get().load(Image).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.monkey).into(imagePerson, new Callback() {
                                 @Override

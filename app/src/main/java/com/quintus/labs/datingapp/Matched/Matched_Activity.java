@@ -87,18 +87,6 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
         recyclerView = findViewById(R.id.active_recycler_view);
         UserChatsListView= findViewById(R.id.UserChats_ListView_id);
 
-//        adapter = new ActiveUserAdapter(usersList, getApplicationContext());
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(adapter);
-//        prepareActiveData();
-
-//        mAdapter = new MatchUserAdapter(matchList, getApplicationContext());
-//        RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(getApplicationContext());
-//        mRecyclerView.setLayoutManager(mLayoutManager1);
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        mRecyclerView.setAdapter(mAdapter);
 
         prepareMatchData();
 
@@ -107,18 +95,18 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
 
     private void prepareActiveData() {
     }
-
+ // Matched trong messenger
     private void prepareMatchData() {
-        //firebase
+        //firebase lấy thông tin người dùng hiện tại
         mAuth= FirebaseAuth.getInstance();
         currentUser=mAuth.getCurrentUser();
         CurrentUId=currentUser.getUid();
 
 
-        //define array lists
+        //lưu trữ thông tin người dùng và bạn bè
         UsersId=new ArrayList<>();
         UsersArrayList=new ArrayList<>();
-        //if the user click to any friend contact
+        //click user chat để sang màn hình chat
         UserChatsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -132,22 +120,27 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
         });
 
 
-        //check if the current user have friends or not
+        //kiểm tra người dùng có bạn bè hay không
         DatabaseReference root= FirebaseDatabase.getInstance().getReference();
         DatabaseReference m=root.child("Match").child(CurrentUId);
         ValueEventListener eventListener= new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // nếu có
                 if(dataSnapshot.exists()){
+                    //clear dữ liệu cũ để tránh bị lặp
                     UsersId.clear();
                     UsersArrayList.clear();
+                    // hiển thị lên listview
                     final FriendsAdapter adapter=new FriendsAdapter(Matched_Activity.this,UsersArrayList);
                     UserChatsListView.setAdapter(adapter);
+                    // kiểm tra và lấy dữ liệu bạn bè từ firebase
+
                     checkTheFriends();
 
                 }
                 else{
-                    //to not display any friend because the user doesn't have any friend
+                    //không hiển thị vì ko có bạn bè nào
                     UsersId.clear();
                     UsersArrayList.clear();
                     final FriendsAdapter adapter=new FriendsAdapter(Matched_Activity.this,UsersArrayList);
@@ -179,7 +172,7 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
             }
         });
     }
-
+ // tìm kiếm bạn bè
     private void searchText() {
         final FriendsAdapter adapter=new FriendsAdapter(Matched_Activity.this,UsersArrayList);
         UserChatsListView.setAdapter(adapter);
@@ -201,27 +194,7 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
         adapter.notifyDataSetChanged();
      }
 
-//     private boolean checkDup(User user) {
-//         if (matchList.size() != 0) {
-//             for (User u : matchList) {
-//                 if (u.getUsername() == user.getUsername()) {
-//                     return true;
-//                 }
-//             }
-//         }
-//
-//         return false;
-//     }
-
-//     private void checkClickedItem(int position) {
-//
-//         User user = matchList.get(position);
-//         //calculate distance
-//         Intent intent = new Intent(this, ProfileCheckinMatched.class);
-//         intent.putExtra("classUser", user);
-//
-//         startActivity(intent);
-//     }
+   // kiểm tra user hiện tại có bạn bè hay không. nếu có thì cập nhật giao diện người dùng
     private void checkTheFriends(){
         UsersId.clear();
 
@@ -232,9 +205,13 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for( DataSnapshot Snapshot: dataSnapshot.getChildren()){
+                        //Thêm ID của người dùng bạn bè vào danh sách UsersId.
+                        //Snapshot.getKey() trả về ID của người dùng tại vị trí của nút con trong cơ sở dữ liệu
                         UsersId.add(Snapshot.getKey().toString());
                     }
                     sentUserDataToArrayAdapter();
+
+                    //xóa r
                     prepareActiveData();
                 }
             }
@@ -243,16 +220,17 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
         };
         m.addListenerForSingleValueEvent(eventListener);
     }
-
+// câp nhật dữ liệu lên adapter
     private void sentUserDataToArrayAdapter(){
         UsersArrayList.clear();
+        //hiển thị friend
         final FriendsAdapter adapter=new FriendsAdapter(Matched_Activity.this,UsersArrayList);
         final ActiveUserAdapter activeAdapter = new ActiveUserAdapter(usersList, getApplicationContext(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(activeAdapter);
-
+      // lặp qua danh sách UserId
         for(int i=0;i<UsersId.size();i++){
             getFinalMessage(UsersId.get(i));
             DatabaseReference root=FirebaseDatabase.getInstance().getReference();
@@ -260,16 +238,20 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
             ValueEventListener eventListener= new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    //ktra dữ liệu có tồn tại tại vị trí sử lí không
                     if(dataSnapshot.exists()){
+                        //lấy ra tên, hình ảnh , status của người dùng từ snapshot
                         String name = dataSnapshot.child("Name").getValue().toString();
                         String image = dataSnapshot.child("Image1").getValue().toString();
                         String OnLine = dataSnapshot.child("Online").getValue().toString();
+                        //nếu online thì thêm người dùng vào UserArrayList rồi hiển thị lên recyclerview
                         if(OnLine.equals("true")){
                             UsersArrayList.add(new Friends(name,FinalMessage,image,dataSnapshot.getKey(),true));
                             Users user = new Users(dataSnapshot.getKey().toString(), name, image);
                             usersList.add(user);
                             activeAdapter.notifyDataSetChanged();
                         }
+                        // nếu không online thì thêm người dùng vào useraraylist với trang thái không trực tuyến và copy sang userarrraylist2
                         else UsersArrayList.add(new Friends(name,FinalMessage,image,dataSnapshot.getKey(),false));
                         FinalMessage="";
                         UsersArrayList2 = new ArrayList<>();
@@ -290,7 +272,7 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
 
 
     }
-
+ //lấy tin nhắn cuối cùng từ cơ sở dữ liệu Firebase Realtime Database giữa người dùng hiện tại và một người dùng khác
     private void getFinalMessage(String UserId){
         FinalMessage="";
         DatabaseReference root= FirebaseDatabase.getInstance().getReference();
@@ -300,6 +282,7 @@ public class Matched_Activity extends AppCompatActivity implements SelectListene
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot Snapshot : dataSnapshot.getChildren()){
+                        // nếu là hình ảnh gán hình ảnh cho FinalMessage
                         if(Snapshot.child("Message Type").getValue().equals("Image")) FinalMessage="Image";
                         else if(Snapshot.child("Message Type").getValue().equals("Record")) FinalMessage="Audio";
                         else FinalMessage=Snapshot.child("Message").getValue().toString().substring(1, Snapshot.child("Message").getValue().toString().length());

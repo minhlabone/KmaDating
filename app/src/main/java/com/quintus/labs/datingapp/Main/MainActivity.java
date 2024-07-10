@@ -97,22 +97,25 @@ public class MainActivity extends Activity {
         moreFrame = findViewById(R.id.more_frame);
         animationView = findViewById(R.id.animationView);
         animationView2 = findViewById(R.id.animationView2);
-        // start pulsator
+        // start pulsator( hiệu ứng dung nhị tròn tròn)
         PulsatorLayout mPulsator = findViewById(R.id.pulsator);
         mPulsator.start();
         mNotificationHelper = new NotificationHelper(this);
+        // lấy người dùng hiện tại
         currentUser = mAuth.getCurrentUser();
 
         if(currentUser==null){
+            //nếu không có thì chuyển qua màn hình Intro ( giới thiệu)
             Intent intent = new Intent(MainActivity.this, IntroductionMain.class);
             startActivity(intent);
             finish();
         }
         else{
 //            flingContainer = findViewById(R.id.frame);
+            // lấy UID của user hiện tại
             currentUserId = currentUser.getUid();
 
-
+           //Cấp quyền  truy cập vị trí
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{
@@ -120,18 +123,21 @@ public class MainActivity extends Activity {
                         REQUEST_CODE_ASK_PERMISSIONS);
                 return;
             }else{
+                //lấy location từ hệ thống
                 LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
+                //nếu GPS được bật thì  gọi update cập nhật vị trí  swipcard
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                     updateLocation();
                     swipeCard();
                 }else{
+                    // yêu cầu bật GPS
                   enableGPS();
                 }
                 }
 
 //            updateLocation();
 //            swipeCard();
+            //lấy ra uid của người dùng và set giá trị cho onile và seen
             String CurrentUID = currentUser.getUid();
             FirebaseDatabase.getInstance().getReference().child("users").child(CurrentUID).child("Online").setValue("true");
             FirebaseDatabase.getInstance().getReference().child("users").child(CurrentUID).child("Seen").setValue("online");
@@ -142,7 +148,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-
+     // set trạng thái thành offline
             FirebaseAuth Auth= FirebaseAuth.getInstance();
             FirebaseUser currentUser = Auth.getCurrentUser();
             if (currentUser != null) {
@@ -154,32 +160,9 @@ public class MainActivity extends Activity {
 
 
     }
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-////        isFinished = true;
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        currentUser = mAuth.getCurrentUser();
-//
-//        if(currentUser==null){
-//            Intent intent = new Intent(MainActivity.this, IntroductionMain.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//        else{
-////            flingContainer = findViewById(R.id.frame);
-//            swipeCard();
-//            String CurrentUID = currentUser.getUid();
-//            FirebaseDatabase.getInstance().getReference().child("users").child(CurrentUID).child("Online").setValue("true");
-//            FirebaseDatabase.getInstance().getReference().child("users").child(CurrentUID).child("Seen").setValue("online");
-//
-//
-//        }
-//    }
+
 
     private void swipeCard(){
-
-
 //        updateLocation();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         matchDatabase = FirebaseDatabase.getInstance().getReference("Match").child(currentUserId);
@@ -190,6 +173,7 @@ public class MainActivity extends Activity {
                 if(dataSnapshot.exists()){
                     userArrayList = new ArrayList<>();
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        //nếu id của người dùng  không phải là người dùng hiện tại
                         if(!snapshot.getKey().equals(currentUserId)) {
                             User user = new User();
                             user.setUser_id(snapshot.getKey());
@@ -270,7 +254,7 @@ public class MainActivity extends Activity {
 
 // Thuật toán ghép cặp tinder :vvvv
     private void getCards(){
-        // Xóa nguười dùng khỏi danh sách
+        // Xóa nguười dùng trung với người dùng cùng id khỏi danh sách
         for(String id: selectedUserId){
             userArrayList.removeIf(s -> s.getUser_id().equals(id));
         }
@@ -278,7 +262,7 @@ public class MainActivity extends Activity {
         rowItems = new ArrayList<>();
         arrayAdapter = new PhotoAdapter(this, R.layout.item, rowItems);
 
-        // lấy ra vị tr hiện tại
+        // lấy ra vị tr hiện tại của myUser  ( người dùng hiện tại)
         Location currentLocation = new Location("currentLocation");
         currentLocation.setLatitude(myUser.getLatitude());
         currentLocation.setLongitude(myUser.getLongtitude());
@@ -288,7 +272,7 @@ public class MainActivity extends Activity {
             Location location2 = new Location("location2");
             location2.setLongitude(user.getLongtitude());
             location2.setLatitude(user.getLatitude());
-           // tính khoảng cách giữa myUser với người trong danh sách
+           // tính khoảng cách giữa myUser với người trong danh sách theo km
             float distance = currentLocation.distanceTo(location2)/1000 ;
             distance = Math.round(distance*100)/100;
 
@@ -335,6 +319,7 @@ public class MainActivity extends Activity {
 
 
     private void checkRowItem() {
+        // nếu row trống thì hiển thị moreFrame
         if (rowItems.isEmpty()) {
             moreFrame.setVisibility(View.VISIBLE);
             cardFrame.setVisibility(View.GONE);
@@ -353,6 +338,7 @@ public class MainActivity extends Activity {
         } else {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             Location myLocation=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //nếu không lấy được từ GPS thì check  thụ động
             if (myLocation == null)
             {
                 myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -361,11 +347,12 @@ public class MainActivity extends Activity {
 //            FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId).child("latitude").setValue(myLocation.getLatitude());
 
             // code mới update location
+            //nếu nhận được GPS thì cập nhật kinh độ vĩ độ lên FireBase
             if (myLocation != null) {
                 double longitude = myLocation.getLongitude();
                 double latitude = myLocation.getLatitude();
 
-                // Cập nhật lên Firebase
+                // Cập nhật longtiute lên Firebase
                 FirebaseDatabase.getInstance().getReference()
                         .child("users")
                         .child(currentUserId)
@@ -410,12 +397,13 @@ public class MainActivity extends Activity {
     }
 
     private void updateSwipeCard() {
+        // library SwipeFlingAdapter
         final SwipeFlingAdapterView flingContainer = findViewById(R.id.frame);
         flingContainer.setAdapter(arrayAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                // this is the simplest way to delete an object from the Adapter (/AdapterView)
+                // khi thẻ đầu tiên bị loại bỏ
                 Log.d("LIST", "removed object!");
                 rowItems.remove(0);
 //                selectedDatabase.child(rowItems.get(0).getUserId()).setValue(rowItems.get(0).getUserId());
@@ -424,6 +412,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+                //lottie animation
                 animationView2.setVisibility(View.VISIBLE);
                 animationView2.setAnimation(R.raw.breakhear2);
                 animationView2.playAnimation();
@@ -478,13 +467,15 @@ public class MainActivity extends Activity {
 
             @Override
             public void onScroll(float scrollProgressPercent) {
+                // trả về đối tượng view thẻ hiện tại người dùng đang tương tác
                 View view = flingContainer.getSelectedView();
+                // set độ mờ và dịch chuyển khi vuốt
                 view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
                 view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
         });
 
-        // Optionally add an OnItemClickListener
+        //Profile của user cards khi click
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
@@ -505,13 +496,15 @@ public class MainActivity extends Activity {
 
         mNotificationHelper.getManager().notify(1, nb.build());
     }
-
+// khi ấn vào dislike
     public void DislikeBtn(View v) {
+        //ktra danh sách có rỗng ko
         if (rowItems.size() != 0) {
+            //lấy ra card đầu tiên
             Cards card_item = rowItems.get(0);
 
             String userId = card_item.getUserId();
-
+           // remove đối tượng card này
             rowItems.remove(0);
             arrayAdapter.notifyDataSetChanged();
             selectedDatabase.child(card_item.getUserId()).setValue(card_item.getUserId());
@@ -520,7 +513,7 @@ public class MainActivity extends Activity {
             startActivity(btnClick);
         }
     }
-
+// like thì lưu vào trong match
     public void LikeBtn(View v) {
         if (rowItems.size() != 0) {
             Cards card_item = rowItems.get(0);
@@ -561,12 +554,17 @@ public class MainActivity extends Activity {
     }
   // kiểm tra và yêu cầu bat GPS
     public void enableGPS(){
+        //tạo yêu cầu vị trí mới
         LocationRequest locationRequest = LocationRequest.create();
+        // đặt ưu tiên cao cho việc lấy vị trí chính xác nhất
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        // yêu cầu kiểm tra cài đặt vị trí và thêm vào builder
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
+        //kiểm tra các cài đặt vị trí hiện tại và trả về một đối tượng Task<LocationSettingsResponse>
         Task<LocationSettingsResponse> result =
                 LocationServices.getSettingsClient(MainActivity.this).checkLocationSettings(builder.build());
+        //sử lí kết quả kiểm tra cài đặt
         result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
             @Override
             public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
@@ -576,14 +574,14 @@ public class MainActivity extends Activity {
                     // requests here.
                 } catch (ApiException exception) {
                     switch (exception.getStatusCode()) {
+                        //nghĩa là cài đặt vị trí chưa thỏa mãn, nhưng có thể được sửa chữa bằng cách hiển thị một hộp thoại cho người dùng.
                         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                            // Location settings are not satisfied. But could be fixed by showing the
-                            // user a dialog.
+
                             try {
                                 // Cast to a resolvable exception.
                                 ResolvableApiException resolvable = (ResolvableApiException) exception;
                                 // Show the dialog by calling startResolutionForResult(),
-                                // and check the result in onActivityResult().
+                                //hiển thị hộp thoại yêu cầu người dùng bật cài đặt vị trí.
                                 resolvable.startResolutionForResult(
                                         MainActivity.this,
                                         LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -593,6 +591,7 @@ public class MainActivity extends Activity {
                                 // Ignore, should be an impossible error.
                             }
                             break;
+                            //ghĩa là cài đặt vị trí không thỏa mãn và không có cách nào để sửa chữa chúng, nên không hiển thị hộp thoại
                         case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                             // Location settings are not satisfied. However, we have no way to fix the
                             // settings so we won't show the dialog.
@@ -608,7 +607,8 @@ public class MainActivity extends Activity {
             case LocationRequest.PRIORITY_HIGH_ACCURACY:
                 switch (resultCode) {
                     case Activity.RESULT_OK:
-                        // All required changes were successfully made
+
+                        // thành công thì cập nhật vị trí mỗi 1s
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {

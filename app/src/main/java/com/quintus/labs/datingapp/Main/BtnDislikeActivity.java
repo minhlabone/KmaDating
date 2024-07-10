@@ -31,6 +31,7 @@ public class BtnDislikeActivity extends AppCompatActivity {
         dislike = findViewById(R.id.dislike);
 
         Intent intent = getIntent();
+        // nhận từ phía main
         String profileUrl = intent.getStringExtra("url");
 
         switch (profileUrl) {

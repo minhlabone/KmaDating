@@ -130,6 +130,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // lấy dữ liệu từ firebase rồi set cho các thuộc tính
                  nameTxt = snapshot.child("Name").getValue().toString();
                 final String Image = snapshot.child("Image1").getValue().toString();
                 final String Image2 = snapshot.child("Image2").getValue().toString();
@@ -274,6 +275,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+
+    //Đang lỗi chưa sửa được :((
     private void requestMultiplePermissions() {
         if (ActivityCompat.checkSelfPermission(EditProfileActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(EditProfileActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED
@@ -281,7 +284,7 @@ public class EditProfileActivity extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, permissionsRequired[0])
                     || ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, permissionsRequired[1])
                     || ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, permissionsRequired[2])) {
-                //Show Information about why you need the permission
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
                 builder.setTitle("Need Multiple Permissions");
                 builder.setMessage("This app needs Camera and Location permissions.");
@@ -300,8 +303,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 });
                 builder.show();
             } else if (permissionStatus.getBoolean(permissionsRequired[0], false)) {
-                //Previously Permission Request was cancelled with 'Dont Ask Again',
-                // Redirect to Settings after showing Information about why you need the permission
+                // Yêu cầu cấp phép trước đó đã bị hủy bằng 'Đừng hỏi lại',
+                // Chuyển hướng đến Cài đặt sau khi hiển thị Thông tin về lý do bạn cần có quyền
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
                 builder.setTitle("Need Multiple Permissions");
                 builder.setMessage("This app needs Camera and Location permissions.");
@@ -495,7 +498,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 "Lưu thay đổi");
         mProgressBar.setMessage("vui lòng đợi trong khi chúng tôi thay đổi Trạng thái của bạn");
         mProgressBar.show();
-
+  // set giá trị cho các trường rồi lưu
         mUserDatabase.child("Name").setValue(name.getText().toString());
         mUserDatabase.child("Job").setValue(job.getText().toString());
         mUserDatabase.child("School").setValue(school.getText().toString());

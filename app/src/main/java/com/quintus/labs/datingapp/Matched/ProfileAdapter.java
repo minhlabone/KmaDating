@@ -20,6 +20,7 @@ import java.util.List;
 
 
 public class ProfileAdapter extends ArrayAdapter<User> {
+
     private int resourceId;
     private Context mContext;
 

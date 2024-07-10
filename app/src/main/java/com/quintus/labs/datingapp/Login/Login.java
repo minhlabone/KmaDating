@@ -45,13 +45,15 @@ public class Login extends AppCompatActivity {
         init();
     }
 
+
+    //  kiểm tra chuỗi có rỗng
     private boolean isStringNull(String string) {
         Log.d(TAG, "isStringNull: checking string if null.");
 
         return string.equals("");
     }
 
-    //----------------------------------------Firebase----------------------------------------
+    //Khởi tạo sự kiên + button
 
     private void init() {
         //initialize the button for logging in
@@ -82,6 +84,7 @@ public class Login extends AppCompatActivity {
 
 
         TextView linkSignUp = findViewById(R.id.link_signup);
+        // chuyen sang dang ki
         linkSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +94,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
+     //Quên mật khẩu
         LinearLayout layout_forgot_password = findViewById(R.id.layout_forgot_password);
         layout_forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +108,10 @@ public class Login extends AppCompatActivity {
 
     }
 
+
+    //Login
     private void loginUser(String email, String password) {
+        //sử dụng sigInwwith email
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

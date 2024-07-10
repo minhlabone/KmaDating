@@ -3,7 +3,7 @@ package com.quintus.labs.datingapp.Utils;
 import java.util.Calendar;
 
 
-
+// tính tuổi dựa trên ngày cung cấp
 public class CalculateAge {
     private int age;
 
